@@ -261,7 +261,7 @@ def _downloader_worker_thread(thread_num, q, force, base_url,
     # Check if file exists.
     file_url = '%s/%s' % (base_url, input_sha1_sum)
     (code, _, err) = gsutil.check_call('ls', file_url)
-    if code != 0:
+    if code != 0 and code != 250:
       if code == 404:
         out_q.put('%d> File %s for %s does not exist, skipping.' % (
             thread_num, file_url, output_filename))
